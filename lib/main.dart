@@ -43,6 +43,28 @@ class NetworkData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: fetchPosts(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.hasData) {
+          List<Map<String, dynamic>> posts = snapshot.data!;
+          return ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              var post = posts[index];
+              return ListTile(
+                title: Text('${post}'),
+              );
+            },
+          );
+        } else {
+          return const Text('No data available');
+        }
+      },
+    );
   }
 }
