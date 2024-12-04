@@ -57,6 +57,8 @@ class NetworkData extends StatelessWidget {
             itemBuilder: (context, index) {
               var post = posts[index];
               var postContent = post['attributes']['contentHtml'];
+              var regex = RegExp('<p>');
+              dynamic cleanedPost = postContent?.replaceAll(regex, '');
 
               return ListTile(
                 title: Container(
@@ -67,7 +69,7 @@ class NetworkData extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '$postContent',
+                      '$cleanedPost',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 27,
