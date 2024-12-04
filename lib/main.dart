@@ -56,8 +56,25 @@ class NetworkData extends StatelessWidget {
             itemCount: posts.length,
             itemBuilder: (context, index) {
               var post = posts[index];
+              var postContent = post['attributes']['contentHtml'];
+
               return ListTile(
-                title: Text('${post}'),
+                title: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(23),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '$postContent',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 27,
+                      ),
+                    ),
+                  ),
+                ),
               );
             },
           );
